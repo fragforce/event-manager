@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head" .Title}}
+<body>
+{{template "navbar"}}
+<div class="container">
+  <h1 class="text-center">Teams</h1>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 text-center">
+      {{range .Teams}}
+        <a class="btn btn-primary btn-lg col-md-6" href="/{{.Hash}}">{{.Name}}</a>
+      {{end}}
+    </div>
+  </div>
+</div>
+{{template "scripts"}}
+</body>
+</html>

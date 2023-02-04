@@ -31,6 +31,8 @@ a {
   text-decoration: unset;
 }
 
+/*  ##signup  */
+
 .signup-box {
   position: absolute;
   top: 50%;
@@ -98,16 +100,8 @@ a {
   font-size: 12px;
 }
 
-input::placeholder {
-  color: transparent;
-}
-
-input:focus::placeholder {
-  color: grey;
-}
-
 /* Customize the label (the container) */
-.container {
+.signup-box .container {
   display: block;
   position: relative;
   padding-left: 35px;
@@ -121,7 +115,7 @@ input:focus::placeholder {
 }
 
 /* Hide the browser's default checkbox */
-.container input {
+.signup-box .container input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -129,8 +123,10 @@ input:focus::placeholder {
   width: 0;
 }
 
+/* ##checkmark */
+
 /* Create a custom checkbox */
-.checkmark {
+.signup-box .checkmark {
   position: absolute;
   top: 0;
   left: 0;
@@ -140,29 +136,29 @@ input:focus::placeholder {
 }
 
 /* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
+.signup-box .container:hover input ~ .checkmark {
   background-color: #ccc;
 }
 
 /* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
+.signup-box .container input:checked ~ .checkmark {
   background-color: #4e738b;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
+.signup-box .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
 /* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
+.signup-box .container input:checked ~ .checkmark:after {
   display: block;
 }
 
 /* Style the checkmark/indicator */
-.container .checkmark:after {
+.signup-box .container .checkmark:after {
   left: 9px;
   top: 5px;
   width: 5px;
@@ -173,6 +169,8 @@ input:focus::placeholder {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+/* ##input */
 
 .signup-box input {
   font-size: 16px;
@@ -193,7 +191,15 @@ input:focus::placeholder {
   rgba(0, 0, 0, 0) 0px 0px 0px 0px;
 }
 
-input[type="submit"] {
+.signup-box input::placeholder {
+  color: transparent;
+}
+
+.signup-box input:focus::placeholder {
+  color: grey;
+}
+
+.signup-box input[type="submit"] {
   background-color: #4e738b;
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
   rgba(0, 0, 0, 0) 0px 0px 0px 0px,

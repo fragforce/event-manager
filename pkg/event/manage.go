@@ -4,10 +4,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func manageEvents(c *gin.Context) {
-	c.Param("org")
+func GetTeamManage(c *gin.Context) {
+
 }
 
-func manageEvent(c *gin.Context) {
+func PostTeamManage(c *gin.Context) {
+
+}
+
+func PostTeamEvent(c *gin.Context) {
 
 }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head" .Title}}
+<body>
+{{template "navbar"}}
+<div class="container">
+  <div class="row justify-content-center">
+    <h1 class="text-center">
+      {{.team}} {{.event}}<br>{{.position}} signup
+    </h1>
+    <div class="col-5">
+      <form>
+        <div class="row justify-content-center">
+          <div class="mb-3">
+            <label for="signupEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="signupEmail"  placeholder="fragbot@fragforce.org" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          {{range .questions}}
+          <div class="mb-3">
+            <label for="{{.LabelLower}}" class="form-label">{{.Label}}</label>
+            <input id="{{.LabelLower}}" class="form-control" type="{{.Type}}" required="{{.Required}}"  placeholder="{{.Placeholder}}">
+          </div>
+          {{end}} {{range .shifts}}
+          <!-- This checkbox will show extra options for the shift-->
+          <div class="alert alert-secondary">
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="{{.Hash}}" onclick="minimizeSelection('{{.Hash}}')" aria-describedby="{{.Hash}}-Help">
+              <label class="form-check-label" for="{{.Hash}}"> {{.Title}}: {{.Game}} - {{.Length}} Hours</label> </br>
+              <div id="{{.Hash}}-Help"><script type="text/javascript">var utctime = new Date(Date.parse({{.Start.Format "Jan 02 2006 3:04:05 PM UTC"}})); document.write(utctime.toString());</script></div>
+            </div>
+            <!-- This is for the response div that is shown when the box is checked -->
+            <div class="row mb-3" id="{{.Hash}}-response-div" style="display:none;">
+              <div class="mb-3 col-10">
+                <label for="{{.Hash}}-game-name" class="form-label">What game do you want to play?</label>
+                <input id="{{.Hash}}-game-name" class="form-control" type="text" placeholder="Fortnite" aria-describedby="{{.Hash}}-gameHelp">
+                <div id="{{.Hash}}-gameHelp" class="form-text">Please only put a single game.</div>
+              </div>
+
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="{{.Hash}}-needs-players" onclick="minimizeSelection('{{.Hash}}-needs-players')" aria-describedby="{{.Hash}}-gameHelp">
+                <label class="form-check-label" for="{{.Hash}}-needs-players">Need extra players?</label> </br>
+              </div>
+
+              <div class="row mb-3 col-10" id="{{.Hash}}-needs-players-response-div" style="display:none;">
+                <div class="mb-3">
+                  <label for="{{.Hash}}-max-players" class="form-label">How many players do you need??</label>
+                  <input id="{{.Hash}}-max-players" class="form-control" type="number"  min="0" placeholder="3" aria-describedby="{{.Hash}}-maxPlayers">
+                  <div id="{{.Hash}}-maxPlayers" class="form-text">How many players other than yourself.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{end}}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{{template "scripts"}}
+</body>
+</html>

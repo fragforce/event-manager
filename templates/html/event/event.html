@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head" .Title}}
+<body>
+{{template "navbar"}}
+<div class="container">
+  <h1 class="text-center">{{.team.Name}} {{.Event.Name}} Schedule</h1>
+  <div class="row">
+  {{ range $type, $shifts := .Shifts }}
+    <div class="col">
+      <div class="alert alert-success"> {{ $type }} shifts</div>
+      {{ range $shift := $shifts }}
+        <div class="alert alert-primary">{{ $shift.Title }}</div>
+      {{ end }}
+    </div>
+  {{ end }}
+  </div>
+</div>
+{{template "scripts"}}
+</body>
+</html>

@@ -1,0 +1,40 @@
+- event_id: 5b392c09-435d-4ea7-aae8-54f94a2ccaeb
+  event_hash: add37bea39
+  event_name: 2022 Fall Superstream
+  event_start: 2022-11-18T13:00:00Z
+  event_length: 40
+  signups:
+    - type: "streamer"
+      has_game: true
+      questions:
+        - label: "Twitch Username"
+          placeholder: "MisterFragbot"
+          type: "text"
+          required: true
+
+    - type: "moderator"
+      questions:
+        - label: "Twitch Username"
+          placeholder: "MisterFragbot"
+          type: "text"
+          required: true
+
+    - type: "manager"
+
+- event_id: 8363169e-349f-45fd-98d0-afe12e2c0ab4
+  event_hash: 22ddedb3a9
+  event_name: 2022 Summer Superstream
+  event_start: 2022-08-12T13:00:00Z
+  event_length: 40
+
+- event_id: 5793a68b-1602-4c0b-9836-9f565eda1935
+  event_hash: c668c3fe4f
+  event_name: 2023 Spring Superstream
+  event_start: 2023-04-14T13:00:00Z
+  event_length: 40
+
+- event_id: b226472c-597b-435d-8e21-63b843f0e828
+  event_hash: 7e559abdea
+  event_name: test superstream
+  event_start: 2022-08-12T13:00:00Z
+  event_length: 4000

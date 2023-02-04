@@ -1,71 +1,80 @@
 package event
 
 import (
-	"net/http"
-
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"io"
+	"log"
+	"net/http"
 )
 
-func getSignup(c *gin.Context) {
-	var thisOrg Organization
+func GetSignup(c *gin.Context) {
+	var thisTeam Team
 	var thisEvent Event
-	var thisUser User
 	var shifts []Shift
 	var questions []Question
 
-	// get org info
-	for _, org := range organizations {
-		if org.Name == c.Param("org") {
-			thisOrg = org
+	// get team info
+	for _, team := range teams {
+		if team.Hash == c.Param("teamid") {
+			thisTeam = team
 			break
 		}
 	}
 
 	// load specific event
-	for _, event := range thisOrg.Events {
-		if event.ID == c.Param("eventid") {
+	for _, event := range thisTeam.Events {
+		if event.Hash == c.Param("eventid") {
 			thisEvent = event
 			break
 		}
 	}
 
-	for _, user := range thisEvent.Users {
-		if user.UserID == c.Param("userid") {
-			thisUser = user
-			break
-		}
-	}
-	
-	if thisOrg.Name == "" || thisEvent.Name == "" || thisUser.UserID == "" {
-		return
-	}
-
 	// load shifts for this event
 	for _, shift := range thisEvent.Shifts {
 		if shift.Type == c.Param("position") {
-			shifts = append(shifts, shift)
 			// if signup shares type then set has game
-			for _, signup := range thisOrg.Signups {
+			for _, signup := range thisEvent.Signups {
 				if signup.Type == shift.Type {
+
 					shift.HasGame = signup.HasGame
 					questions = signup.Questions
 				}
 			}
+			shifts = append(shifts, shift)
 		}
 	}
 
 	c.HTML(http.StatusOK, "signup.html", gin.H{
-		"eventid":   thisEvent.ID,
+		"Title":     "Event Signup",
+		"eventid":   thisEvent.Hash,
+		"team":      thisTeam.Name,
+		"teamid":    thisTeam.Hash,
 		"event":     thisEvent.Name,
 		"position":  c.Param("position"),
-		"userid":    c.Param("userid"),
-		"user":      c.Param("user"),
 		"questions": questions,
 		"shifts":    shifts,
 	})
-
 }
 
-func postSignup(c *gin.Context) {
-	c.Query("")
+func PostSignup(c *gin.Context) {
+	body, err := io.ReadAll(c.Request.Body)
+	if err != nil {
+		log.Print(err)
+	}
+	fmt.Printf(string(body))
+
+	fmt.Println(c.Query("email"))
+	fmt.Println(c.Query("Twitch+Username"))
+}
+
+func PatchSignup(c *gin.Context) {
+	body, err := io.ReadAll(c.Request.Body)
+	if err != nil {
+		log.Print(err)
+	}
+	fmt.Printf(string(body))
+
+	fmt.Println(c.Query("email"))
+	fmt.Println(c.Query("Twitch+Username"))
 }

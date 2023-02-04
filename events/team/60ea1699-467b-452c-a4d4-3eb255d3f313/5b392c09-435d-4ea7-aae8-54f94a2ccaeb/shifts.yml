@@ -1,0 +1,55 @@
+- shift_id: "f403fa5d-fe2c-4424-b0e2-8edab1b51858"
+  type: "manager"
+  title: "Manager Shift 1"
+  start: 2022-11-18T13:00:00Z
+  length: 6
+
+- shift_id: "1660dad7-87e1-4297-a34c-48a807c49d96"
+  type: "manager"
+  title: "Manager Shift 2"
+  start: 2022-11-18T19:00:00Z
+  length: 6
+
+- shift_id: "30782162-ac84-4fd8-86b7-80a7f20b53fc"
+  hash: 86737912e2
+  type: "streamer"
+  title: "Streamer Shift 1"
+  start: 2022-11-18T13:00:00Z
+  length: 2
+  game: Streamers Choice
+
+- shift_id: "99b2be2e-9c5a-4342-955c-40990ac67de3"
+  hash: 25c6bdeddd
+  type: "streamer"
+  title: "Streamer Shift 2"
+  start: 2022-11-18T15:00:00Z
+  length: 2
+  game: Streamers Choice
+
+- shift_id: "3055097e-5349-4737-9f55-fe494500387c"
+  hash: 6a16bbf2e3
+  type: "streamer"
+  title: "Streamer Shift 3"
+  start: 2022-11-18T17:00:00Z
+  length: 2
+  game: Streamers Choice
+
+- shift_id: "0d6d5329-427c-4245-ab9c-1b072a9759b5"
+  hash: 525e1f65d0
+  type: "streamer"
+  title: "Streamer Shift 4"
+  start: 2022-11-18T19:00:00Z
+  length: 3
+  game: Villainous (Tabletop Simulator)
+
+- shift_id: "09a073d1-a9d4-4603-9f76-21bc68f259f1"
+  type: "moderator"
+  title: "Moderator Shift 1"
+  start: 2022-11-18T13:00:00Z
+  length: 3
+
+- shift_id: "e3181f6b-1bcb-477f-b886-660a95bd1629"
+  type: "moderator"
+  title: "Moderator Shift 2"
+  start: 2022-11-18T19:00:00Z
+  length: 6

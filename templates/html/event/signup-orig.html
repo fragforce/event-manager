@@ -1,15 +1,17 @@
-<head xmlns="http://www.w3.org/1999/html">
-  <link rel="stylesheet" href="/css/signup.css">
+<head xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+  {{template "stylesheets"}}
+  <title>{{.event}} {{.position}} Signup</title>
 </head>
 <html>
 <body>
+{{template "navbar"}}
 <div class="signup-box">
   <h1>
-    {{.event}}<br>
+    {{.team}} {{.event}}<br>
     {{.position}} signup
   </h1>
 
-  <form action="/action_page.php" method="post">
+  <form action="/{{.teamid}}/event/{{.eventid}}/signup/{{.position}}" method="post">
     <h2>
       User Information
     </h2>
@@ -18,7 +20,7 @@
       {{range .questions}}
       <div class="field padding-bottom--24">
         <div class="input-box">
-          <input type="{{.Type}}" name="{{.Label}}" required="{{.Required}}" placeholder="{{.Placeholder}}">
+          <input type="{{.Type}}" name="{{.LabelLower}}" required="{{.Required}}" placeholder="{{.Placeholder}}">
           <label>{{.Label}}</label>
         </div>
       </div>
@@ -28,33 +30,30 @@
         Select Shifts
       </h2>
 
-      <h3>
-        All shifts are in Eastern
-      </h3>
-
       {{range .shifts}}
       <div class="field field-checkbox padding-bottom--24 flex-flex align-center">
-        <label class="container" for="{{.ShiftID}}"> {{.Title}}: {{.Start.Format "Mon Jan 02, 2006 03 PM"}}
-          <input type="checkbox" id="{{.ShiftID}}" onclick="myFunction('{{.ShiftID}}')">
+        <label class="container" for="{{.ShiftID}}"> {{.Title}}: {{.Game}} - {{.Length}} Hours</br>
+          <input type="checkbox" id="{{.ShiftID}}" onclick="minimizeSelection('{{.ShiftID}}')">
           <span class="checkmark"></span>
+          <script type="text/javascript">var utctime = new Date(Date.parse({{.Start.Format "Jan 02 2006 3:04:05 PM +MST"}})); document.write(utctime.toString());</script>
         </label>
       </div>
 
       <div id="{{.ShiftID}}-response-div" style="display:none" class="field padding-bottom--24">
         <div class="input-box">
-          <input type="text" name="{{.ShiftID}}-game-name" required="true"  placeholder="Rocket League">
+          <input type="text" name="{{.ShiftID}}-game-name" placeholder="Rocket League">
           <label>What game do you want to play?</label>
         </div>
         <div class="field field-checkbox padding-bottom--24 flex-flex align-center">
           <label class="container" for="{{.ShiftID}}-needs-players"> Do you need extra players?
-            <input type="checkbox" id="{{.ShiftID}}-needs-players" onclick="myFunction('{{.ShiftID}}-needs-players')">
+            <input type="checkbox" id="{{.ShiftID}}-needs-players" onclick="minimizeSelection('{{.ShiftID}}-needs-players')">
             <span class="checkmark"></span>
           </label>
         </div>
       </div>
       <div id="{{.ShiftID}}-needs-players-response-div" style="display:none" class="field padding-bottom--24">
         <div class="input-box">
-          <input type="number" name="{{.ShiftID}}-max-players" required="true" placeholder="4">
+          <input type="number" name="{{.ShiftID}}-max-players" placeholder="4">
           <label>How many players do you need?</label>
         </div>
       </div>
@@ -66,17 +65,6 @@
     </div>
   </form>
 </div>
-
-<script>
-    function myFunction(inputString) {
-        var checkBox = document.getElementById(inputString);
-        var text = document.getElementById(inputString+"-response-div");
-        if (checkBox.checked == true){
-            text.style.display = "block";
-        } else {
-            text.style.display = "none";
-        }
-    }
-</script>
+{{template "scripts"}}
 </body>
 </html>
