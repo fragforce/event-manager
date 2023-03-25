@@ -10,7 +10,7 @@
     <div class="col-md-6">
       <h1 style="text-align: center">Current Events</h1>
       {{range .currentEvents}}
-        <a class="btn btn-success btn-lg col-md-12" href="/{{$.teamid}}/event/{{.Hash}}">{{.Name}}</a>
+        <a class="btn btn-success btn-lg col-md-12" href="/{{$.teamid}}/event/{{.Hash}}">{{.Name}}</br><script type="text/javascript">var utctime = new Date(Date.parse({{.Start.Format "Jan 02 2006 3:04:05 PM UTC"}})); document.write(utctime.toString().split(' GMT')[0]);</script></a>
       {{end}}    </div>
   </div>
 
@@ -19,7 +19,7 @@
     <div class="col-md-6">
       <h1 style="text-align: center">Future Events</h1>
       {{range .futureEvents}}
-      <a class="btn btn-primary btn-lg col-md-12" href="/{{$.teamid}}/event/{{.Hash}}">{{.Name}}</a>
+      <a class="btn btn-primary btn-lg col-md-12" href="/{{$.teamid}}/event/{{.Hash}}">{{.Name}}</br><script type="text/javascript">var utctime = new Date(Date.parse({{.Start.Format "Jan 02 2006 3:04:05 PM UTC"}})); document.write(utctime.toString().split(' GMT')[0]);</script></a>
       {{end}}
     </div>
     <div class="col-md-4 "></div>
@@ -30,7 +30,7 @@
     <div class="col-md-6">
       <h1 style="text-align: center">Past Events</h1>
       {{range .pastEvents}}
-      <a class="btn btn-info btn-lg col-md-12" href="/{{$.teamid}}/event/{{.Hash}}">{{.Name}}</a>
+      <a class="btn btn-info btn-lg col-md-12" href="/{{$.teamid}}/event/{{.Hash}}">{{.Name}}</br><script type="text/javascript">var utctime = new Date(Date.parse({{.Start.Format "Jan 02 2006 3:04:05 PM UTC"}})); document.write(utctime.toString().split(' GMT')[0]);</script></a>
       {{end}}
     </div>
   </div>

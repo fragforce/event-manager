@@ -2,11 +2,12 @@ package webserver
 
 import (
 	"fmt"
+	"net/http"
+	"time"
+
 	"github.com/fragforce/event-manager/pkg/event"
 	"github.com/fragforce/event-manager/pkg/filestore"
 	"github.com/gin-gonic/gin"
-	"net/http"
-	"time"
 )
 
 func Start() {
@@ -18,12 +19,13 @@ func Start() {
 
 	// general pages
 	s.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", nil)
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"Title": "Home",
+		})
 	})
 
 	// teams
 	s.GET("/teams", event.GetTeams)
-
 	s.GET("/:teamid", event.GetTeam)
 
 	// login

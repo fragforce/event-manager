@@ -2,10 +2,11 @@ package event
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"io"
 	"log"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GetSignup(c *gin.Context) {
@@ -30,15 +31,19 @@ func GetSignup(c *gin.Context) {
 		}
 	}
 
+	for _, signup := range thisEvent.Signups {
+		if signup.Type == c.Param("position") {
+			questions = signup.Questions
+		}
+	}
+
 	// load shifts for this event
 	for _, shift := range thisEvent.Shifts {
 		if shift.Type == c.Param("position") {
 			// if signup shares type then set has game
 			for _, signup := range thisEvent.Signups {
 				if signup.Type == shift.Type {
-
 					shift.HasGame = signup.HasGame
-					questions = signup.Questions
 				}
 			}
 			shifts = append(shifts, shift)

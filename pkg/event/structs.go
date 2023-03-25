@@ -56,13 +56,14 @@ type Shift struct {
 }
 
 type Event struct {
-	ID           string    `json:"event_id,omitempty"`
-	Hash         string    `json:"event_hash,omitempty"`
-	Finalized    bool      `json:"finalized,omitempty"`
-	Name         string    `json:"event_name,omitempty"`
-	Start        time.Time `json:"event_start,omitempty"`
-	Length       int       `json:"event_length,omitempty"`
-	Participants []User    `json:"participants,omitempty"`
-	Shifts       []Shift   `json:"shifts,omitempty"`
-	Signups      []Signup
+	ID            string    `json:"event_id,omitempty"`
+	Hash          string    `json:"event_hash,omitempty"`
+	Finalized     bool      `json:"finalized,omitempty"`
+	Name          string    `json:"event_name,omitempty"`
+	Start         time.Time `json:"event_start,omitempty"`
+	Length        int       `json:"event_length,omitempty"`
+	Participants  []User    `json:"participants,omitempty"`
+	Shifts        []Shift   `json:"shifts,omitempty"`
+	SignupEnabled bool      `json:"signup_enabled,omitempty"`
+	Signups       []Signup
 }

@@ -2,8 +2,9 @@ package event
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 var (
@@ -14,7 +15,9 @@ var (
 func GetEvent(c *gin.Context) {
 	var thisTeam Team
 	var thisEvent Event
+
 	shifts := make(map[string][]Shift)
+	signups := make(map[string][]Signup)
 
 	for _, team := range teams {
 		if team.Hash == c.Param("teamid") {
@@ -34,10 +37,15 @@ func GetEvent(c *gin.Context) {
 		shifts[shift.Type] = append(shifts[shift.Type], shift)
 	}
 
+	for _, signup := range thisEvent.Signups {
+		signups[signup.Type] = append(signups[signup.Type], signup)
+	}
+
 	c.HTML(http.StatusOK, "event.html", gin.H{
-		"Title":  fmt.Sprintf("Event Schedule"),
-		"Team":   thisTeam,
-		"Event":  thisEvent,
-		"Shifts": shifts,
+		"Title":   fmt.Sprintf("Event Schedule"),
+		"Team":    thisTeam,
+		"Event":   thisEvent,
+		"Shifts":  shifts,
+		"Signups": signups,
 	})
 }

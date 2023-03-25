@@ -1,10 +1,11 @@
 package webserver
 
 import (
+	"io"
+
 	"github.com/gin-gonic/gin"
 	"github.com/parkervcp/discord-oauth2"
 	"golang.org/x/oauth2"
-	"io"
 
 	"context"
 	"encoding/json"
@@ -17,7 +18,7 @@ var (
 	oauthConf discordOauth
 
 	discordConfig = &oauth2.Config{
-		RedirectURL:  "http://localhost:8080/auth/discord/callback",
+		RedirectURL:  "http://localhost:8080/login/discord/callback",
 		ClientID:     "353011020467404810",
 		ClientSecret: "CDIqEJ6oFMghx2xY0-JPTG4Q6fo6B1KO",
 		Scopes:       []string{discord.ScopeIdentify, discord.ScopeGuilds, discord.ScopeGuildsJoin},
@@ -47,7 +48,7 @@ func discordCallback(c *gin.Context) {
 
 	getDiscordUserGuilds(token)
 
-	c.String(200, "hello %s", dUser)
+	c.String(200, "hello %s", dUser.Username)
 }
 
 func getDiscordUser(token *oauth2.Token) (dUser discordUser, err error) {
