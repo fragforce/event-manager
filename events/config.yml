@@ -1,4 +1,0 @@
-discord:
-  redirect_url: "http://localhost:8080/auth/discord/callback"
-  client_id: "353011020467404810"
-  client_secret: "CDIqEJ6oFMghx2xY0-JPTG4Q6fo6B1KO"
