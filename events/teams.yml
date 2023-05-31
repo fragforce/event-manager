@@ -1,12 +1,13 @@
-- team_id: 60ea1699-467b-452c-a4d4-3eb255d3f313
+---
+- guild_id: "164136635762606081"
+  team_id: 60ea1699-467b-452c-a4d4-3eb255d3f313
   team_hash: 2e26389ac3
   team_name: Fragforce
-  team_owner: be5917086c
   team_url: https://fragforce.org
-  guild_id: "164136635762606081"
-- team_id: fd584d9d-8836-4b97-981d-15616ef25f7a
+  owner_hash: be5917086c
+- guild_id: "164136635762606081"
+  team_id: fd584d9d-8836-4b97-981d-15616ef25f7a
   team_hash: 652a664362
   team_name: Testing Team
-  team_owner: be5917086c
   team_url: https://fragforce.org
-  guild_id: "164136635762606081"
+  owner_hash: be5917086c

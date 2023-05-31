@@ -1,21 +1,29 @@
 package webserver
 
 import (
-	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/fragforce/event-manager/pkg/event"
-	"github.com/fragforce/event-manager/pkg/filestore"
+
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+
+	"github.com/spf13/viper"
 )
 
-func Start() {
+func Start(config viper.Viper) {
+	loadDiscordOauth(config)
+	event.LoadEvents(config)
+
 	s := gin.New()
 	s.LoadHTMLGlob("templates/html/*/*.html")
 	s.Static("/images", "templates/images")
 	s.Static("/css", "templates/styles")
 	s.Static("/js", "templates/scripts")
+
+	store := cookie.NewStore([]byte(viper.GetString("secrets.webserver.session")))
+	s.Use(sessions.Sessions("eventSessions", store))
 
 	// general pages
 	s.GET("/", func(c *gin.Context) {
@@ -29,7 +37,10 @@ func Start() {
 	s.GET("/:teamid", event.GetTeam)
 
 	// login
-	s.GET("/login", discordRedirect)
+	s.GET("/login", func(c *gin.Context) {
+		discordRedirect(c)
+	})
+	//s.GET("/login", discordRedirect)
 	s.GET("/login/discord/callback", discordCallback)
 
 	// event
@@ -47,28 +58,4 @@ func Start() {
 	s.POST("/:teamid/manage/:eventid", event.PostTeamEvent)
 
 	s.Run()
-}
-
-func Test() {
-	shiftStart, err := time.Parse("Mon Jan 02 3:04 AM 2006 MST", "Fri Nov 18 8:00 AM 2022 EST")
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println(shiftStart.Format("Mon, Jan 02 2006 3:04:05 PM +MST"))
-
-	shifts := []event.Shift{
-		event.Shift{
-			ID:     "f403fa5d-fe2c-4424-b0e2-8edab1b51858",
-			Type:   "manager",
-			Title:  "Manager Shift 1",
-			Length: 6,
-			Start:  shiftStart.UTC(),
-		},
-	}
-	err = filestore.UpdateConfig("events/shifts.yml", &shifts)
-	if err != nil {
-		fmt.Println(err)
-	}
-
 }

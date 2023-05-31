@@ -7,11 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var (
-	teams []Team
-	users []User
-)
-
 func GetEvent(c *gin.Context) {
 	var thisTeam Team
 	var thisEvent Event
@@ -19,12 +14,12 @@ func GetEvent(c *gin.Context) {
 	shifts := make(map[string][]Shift)
 	signups := make(map[string][]Signup)
 
-	for _, team := range teams {
-		if team.Hash == c.Param("teamid") {
-			thisTeam = team
-			break
-		}
-	}
+	//for _, team := range teams.Get("") {
+	//	if team.Hash == c.Param("teamid") {
+	//		thisTeam = team
+	//		break
+	//	}
+	//}
 
 	for _, event := range thisTeam.Events {
 		if event.Hash == c.Param("eventid") {

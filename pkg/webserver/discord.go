@@ -1,16 +1,17 @@
 package webserver
 
 import (
+	"context"
+	"encoding/json"
 	"io"
+	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/parkervcp/discord-oauth2"
 	"golang.org/x/oauth2"
 
-	"context"
-	"encoding/json"
-	"log"
-	"net/http"
+	"github.com/spf13/viper"
 )
 
 var (
@@ -18,13 +19,19 @@ var (
 	oauthConf discordOauth
 
 	discordConfig = &oauth2.Config{
-		RedirectURL:  "http://localhost:8080/login/discord/callback",
-		ClientID:     "353011020467404810",
-		ClientSecret: "CDIqEJ6oFMghx2xY0-JPTG4Q6fo6B1KO",
+		RedirectURL:  "",
+		ClientID:     "",
+		ClientSecret: "",
 		Scopes:       []string{discord.ScopeIdentify, discord.ScopeGuilds, discord.ScopeGuildsJoin},
 		Endpoint:     discord.Endpoint,
 	}
 )
+
+func loadDiscordOauth(config viper.Viper) {
+	discordConfig.RedirectURL = config.GetString("discord.oauth.redirect_utl")
+	discordConfig.ClientID = config.GetString("discord.oauth.client_id")
+	discordConfig.ClientSecret = config.GetString("discord.oauth.client_secret")
+}
 
 func discordRedirect(c *gin.Context) {
 	c.Redirect(http.StatusTemporaryRedirect, discordConfig.AuthCodeURL(state))

@@ -2,23 +2,38 @@ package event
 
 import (
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type User struct {
-	ID              string `json:"user_id,omitempty"`
-	Hash            string `json:"hash,omitempty"`
-	DiscordID       string `json:"discord_id,omitempty"`
-	SalesforceOrgID string `json:"salesforce_id,omitempty"`
-	DonationURL     string `json:"donation_url,omitempty"`
+	ID              uuid.UUID `json:"user_id,omitempty" gorm:"type:uuid;default:uuid_generate_v4()"`
+	DiscordID       string    `json:"discord_id,omitempty" gorm:"uniqueIndex"`
+	Hash            string    `json:"hash,omitempty"`
+	SalesforceOrgID string    `json:"salesforce_id,omitempty"`
+	DonationURL     string    `json:"donation_url,omitempty"`
 }
 
 type Team struct {
-	ID     string  `json:"team_id,omitempty"`
-	Hash   string  `json:"team_hash,omitempty"`
-	Name   string  `json:"team_name,omitempty"`
-	Owner  string  `json:"team_owner,omitempty"`
-	URL    string  `json:"team_url,omitempty"`
-	Events []Event `json:"events,omitempty"`
+	ID      uuid.UUID `json:"team_id,omitempty" gorm:"type:uuid;default:uuid_generate_v4()"`
+	Name    string    `json:"team_name,omitempty" gorm:"uniqueIndex"`
+	Hash    string    `json:"team_hash,omitempty"`
+	Owner   string    `json:"team_owner,omitempty"`
+	URL     string    `json:"team_url,omitempty"`
+	Events  []Event   `json:"events,omitempty" gorm:"many2many:team_events;"`
+	Members []User    `gorm:"many2many:team_members;"`
+}
+
+type Event struct {
+	ID            string    `json:"event_id,omitempty"`
+	Hash          string    `json:"event_hash,omitempty"`
+	Finalized     bool      `json:"finalized,omitempty"`
+	Name          string    `json:"event_name,omitempty"`
+	Start         time.Time `json:"event_start,omitempty"`
+	Length        int       `json:"event_length,omitempty"`
+	Participants  []User    `json:"participants,omitempty"`
+	Shifts        []Shift   `json:"shifts,omitempty"`
+	SignupEnabled bool      `json:"signup_enabled,omitempty"`
 }
 
 type Question struct {
@@ -53,17 +68,4 @@ type Shift struct {
 	Players    []User     `json:"players,omitempty"`
 	Signups    []Signup   `json:"signups,omitempty"`
 	Questions  []Question `json:"questions,omitempty"`
-}
-
-type Event struct {
-	ID            string    `json:"event_id,omitempty"`
-	Hash          string    `json:"event_hash,omitempty"`
-	Finalized     bool      `json:"finalized,omitempty"`
-	Name          string    `json:"event_name,omitempty"`
-	Start         time.Time `json:"event_start,omitempty"`
-	Length        int       `json:"event_length,omitempty"`
-	Participants  []User    `json:"participants,omitempty"`
-	Shifts        []Shift   `json:"shifts,omitempty"`
-	SignupEnabled bool      `json:"signup_enabled,omitempty"`
-	Signups       []Signup
 }

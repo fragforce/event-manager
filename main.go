@@ -1,15 +1,7 @@
 package main
 
-import (
-	"github.com/fragforce/event-manager/pkg/event"
-	"github.com/fragforce/event-manager/pkg/webserver"
-	"log"
-)
+import "github.com/fragforce/event-manager/cmd"
 
 func main() {
-	err := event.LoadEvents()
-	if err != nil {
-		log.Panicln(err)
-	}
-	webserver.Start()
+	cmd.Execute()
 }
