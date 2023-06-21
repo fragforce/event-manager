@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head" .Title}}
+<body>
+{{template "navbar"}}
+<div class="container">
+  <div class="row justify-content-center">
+    <h1 class="text-center">
+      {{.team.Name}} {{.event.Name}} Schedule
+    </h1>
+    <div class="col-5">
+      {{range .event.Shifts}}
+      <a class="alert alert-secondary col-8">{{.Name}}</a>
+      {{end}}
+    </div>
+  </div>
+</div>
+</body>
+</html>

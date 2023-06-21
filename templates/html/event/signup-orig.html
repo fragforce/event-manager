@@ -1,0 +1,70 @@
+<head xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+  {{template "stylesheets"}}
+  <title>{{.event}} {{.position}} Signup</title>
+</head>
+<html>
+<body>
+{{template "navbar"}}
+<div class="signup-box">
+  <h1>
+    {{.team}} {{.event}}<br>
+    {{.position}} signup
+  </h1>
+
+  <form action="/{{.teamid}}/event/{{.eventid}}/signup/{{.position}}" method="post">
+    <h2>
+      User Information
+    </h2>
+
+    <div class="field padding-bottom--24">
+      {{range .questions}}
+      <div class="field padding-bottom--24">
+        <div class="input-box">
+          <input type="{{.Type}}" name="{{.LabelLower}}" required="{{.Required}}" placeholder="{{.Placeholder}}">
+          <label>{{.Label}}</label>
+        </div>
+      </div>
+      {{end}}
+
+      <h2>
+        Select Shifts
+      </h2>
+
+      {{range .shifts}}
+      <div class="field field-checkbox padding-bottom--24 flex-flex align-center">
+        <label class="container" for="{{.ShiftID}}"> {{.Title}}: {{.Game}} - {{.Length}} Hours</br>
+          <input type="checkbox" id="{{.ShiftID}}" onclick="minimizeSelection('{{.ShiftID}}')">
+          <span class="checkmark"></span>
+          <script type="text/javascript">var utctime = new Date(Date.parse({{.Start.Format "Jan 02 2006 3:04:05 PM +MST"}})); document.write(utctime.toString());</script>
+        </label>
+      </div>
+
+      <div id="{{.ShiftID}}-response-div" style="display:none" class="field padding-bottom--24">
+        <div class="input-box">
+          <input type="text" name="{{.ShiftID}}-game-name" placeholder="Rocket League">
+          <label>What game do you want to play?</label>
+        </div>
+        <div class="field field-checkbox padding-bottom--24 flex-flex align-center">
+          <label class="container" for="{{.ShiftID}}-needs-players"> Do you need extra players?
+            <input type="checkbox" id="{{.ShiftID}}-needs-players" onclick="minimizeSelection('{{.ShiftID}}-needs-players')">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+      </div>
+      <div id="{{.ShiftID}}-needs-players-response-div" style="display:none" class="field padding-bottom--24">
+        <div class="input-box">
+          <input type="number" name="{{.ShiftID}}-max-players" placeholder="4">
+          <label>How many players do you need?</label>
+        </div>
+      </div>
+      <br>
+      {{end}}
+      <div class="field padding-bottom--24">
+        <input type="submit" name="submit" value="Continue">
+      </div>
+    </div>
+  </form>
+</div>
+{{template "scripts"}}
+</body>
+</html>

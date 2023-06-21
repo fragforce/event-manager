@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+{{template "head" .Title}}
+<body>
+{{template "navbar"}}
+<div class="container">
+  <h1 class="text-center">{{.Team.Name}} {{.Event.Name}} Schedule</h1>
+  {{if .Event.SignupEnabled}}<h1 class="text-center">Signup Now</h1>
+  </br>
+  <div class="row">{{ range $type, $signup := .Signups }}
+    <div class="col text-center">
+      <button type="submit" class="btn btn-primary">{{ $type }} signup</button>
+    </div>{{ end }}
+  </div> </br>{{end}} {{if .Shifts}}
+  <div class="row">{{ range $type, $shifts := .Shifts }}
+    <div class="col">
+      <div class="alert alert-success"> {{ $type }} shifts</div> <!-- header line -->{{ range $shift := $shifts }}
+      <div class="alert alert-primary">{{ $shift.Title }} </br><script type="text/javascript">var utctime = new Date(Date.parse({{.Start.Format "Jan 02 2006 3:04:05 PM UTC"}})); document.write(utctime.toString().split(' GMT')[0]);</script></div>{{ end }}
+    </div>{{ end }}
+  </div>{{ end }}
+</div>
+{{template "scripts"}}
+</body>
+</html>
